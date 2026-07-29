@@ -19,6 +19,8 @@ A responsive weather application built with Node.js, Express, and EJS that fetch
 - 📱 Fully responsive design
 - ⚡ Fast and user-friendly interface
 
+> **Note:** Authentication pages (Sign Up and Log In) are currently UI prototypes and are not connected to a backend authentication system.
+
 ---
 
 ## 🛠️ Tech Stack
@@ -96,7 +98,6 @@ http://localhost:3000
 
 ## 🔮 Future Improvements
 
-- ⭐ Save favourite cities
 - 🌍 Search suggestions
 - 📅 5-day weather forecast
 - 🌙 Dark mode
