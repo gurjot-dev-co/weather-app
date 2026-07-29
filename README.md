@@ -8,6 +8,10 @@ A responsive weather application built with Node.js, Express, and EJS that fetch
 
 > Screenshots will be added after deployment.
 
+## 🌐 Live Demo
+
+**Live Website:** https://weather-app-y9xo.onrender.com/
+
 ---
 
 ## ✨ Features
@@ -102,10 +106,6 @@ http://localhost:3000
 - 📅 5-day weather forecast
 - 🌙 Dark mode
 - 🌡️ Celsius/Fahrenheit toggle
-
-## 🌐 Live Demo
-
-Coming soon.
 
 ---
 
