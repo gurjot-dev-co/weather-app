@@ -486,10 +486,10 @@ footer .social_icons li:nth-child(4) a:hover {
 
 @media (max-width:500px){
     main.home-page {
-        height:70dvh;
+        height:60dvh;
     }
     footer {
-        height: 33vh;
+        height: 25vh;
     }
     .search:hover .search-input,
     .search-input:focus,
