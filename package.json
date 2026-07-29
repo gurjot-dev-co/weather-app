@@ -4,11 +4,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gurjot Kaur",
   "license": "ISC",
-  "description": "",
+  "description": "A responsive weather application built with Node.js, Express, EJS, and the OpenWeatherMap API.",
   "dependencies": {
     "axios": "^1.13.2",
     "body-parser": "^2.2.0",
