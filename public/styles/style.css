@@ -379,7 +379,6 @@ footer .social_icons li:nth-child(4) a:hover {
     height: 46vh;
     width: 35vw;
     border-radius: 10px;
-    /* opacity: 0.4; */
     position: relative;
     z-index: 10;
     overflow: auto;
@@ -482,6 +481,56 @@ footer .social_icons li:nth-child(4) a:hover {
 
     .weather-stats-page-main-sec .stats-box {
         width: 70vw;
+    }
+}
+
+@media (max-width:500px){
+    main.home-page {
+        height:70dvh;
+    }
+    footer {
+        height: 33vh;
+    }
+    .search:hover .search-input,
+    .search-input:focus,
+    .search-input.search-focus {
+        width: 60vw;
+    }
+    .stats-box h2{
+        margin-bottom: 10px;
+    }
+    .stats-box .content img{
+        margin-top: 35px;
+    }
+    .air-pressure .content img {
+        width: 36vw;
+    }
+    .humidity-in-air .content img {
+        width: 50vw;
+    }
+    .compass .content svg {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .cloud-coverage .content img {
+        width: 40vw;
+        margin-left: 6px;
+        margin-right: 5px;
+    }
+    .visibility .content img {
+        width: 36vw;
+        margin-left: 6px;
+        margin-right: 7px;
+    }
+    .sunrise-time .content img,
+    .sunset-time .content img {
+        width: 45vw;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+    .weather-stats-page-main-sec .stats-box {
+        height: 40vh;
+        width: 80vw;
     }
 }
 
