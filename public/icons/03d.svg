@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <!-- Meteocons-style soft cloud gradient -->
+    <linearGradient id="cg1" x1="80" x2="240" y1="40" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f7fe"/>
+      <stop offset="0.5" stop-color="#f3f7fe"/>
+      <stop offset="1" stop-color="#deeafb"/>
+    </linearGradient>
+    <!-- Large cloud (OpenWeather base shape) -->
+    <symbol id="cloudLarge" viewBox="0 0 350 220">
+      <path
+        d="M291 107l-2.5.1A84 84 0 0 0 135.6 43 56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9 60 60 0 0 0 11.2 119l4-.2v.2h224a56 56 0 0 0 0-112Z"
+        fill="url(#cg1)" stroke="#e6effc" stroke-width="6" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Small cloud (OpenWeather proportions) -->
+    <symbol id="cloudSmall" viewBox="0 0 240 150">
+      <path
+        d="M200 88h-1.4A60 60 0 0 0 97 30a40 40 0 0 0-60 40 42 42 0 0 0 .6 6A42 42 0 0 0 52 146h144a40 40 0 0 0 0-58z"
+        fill="url(#cg1)" stroke="#e6effc" stroke-width="5" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+  <!-- Final 03d layout -->
+  <g transform="translate(70 150)"> 
+    <!-- Large cloud (back) -->
+    <use href="#cloudLarge" width="350" height="220">
+      <animateTransform attributeName="transform" type="translate" dur="10s" repeatCount="indefinite" values="-10 0; 10 0; -10 0"/>
+    </use>
+    <!-- Small cloud (front-right) -->
+    <use href="#cloudSmall" width="240" height="150" transform="translate(170 -30)">
+      <animateTransform attributeName="transform" type="translate" dur="7.5s" repeatCount="indefinite" values="-8 0; 8 0; -8 0" />
+    </use>
+  </g>
+</svg>

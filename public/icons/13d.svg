@@ -1,0 +1,45 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <!-- Cloud shape-->
+    <symbol id="cloud" viewBox="0 0 350 222">
+      <path fill="url(#cloudFill)" stroke="#e6effc" stroke-miterlimit="10" stroke-width="6"
+        d="m291 107l-2.5.1A83.9 83.9 0 0 0 135.6 43A56 56 0 0 0 51 91a56.6 56.6 0 0 0 .8 9A60 60 0 0 0 63 219l4-.2v.2h224a56 56 0 0 0 0-112Z"/>
+    </symbol>
+    <!-- Cloud gradient -->
+    <linearGradient id="cloudFill" x1="99.5" x2="232.6" y1="30.7" y2="261.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3f7fe"/>
+      <stop offset=".5" stop-color="#f3f7fe"/>
+      <stop offset="1" stop-color="#deeafb"/>
+    </linearGradient>
+    <!-- Snowflake shape -->
+    <symbol id="flake" viewBox="0 0 24 24">
+      <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round">
+        <path d="M12 2v20M2 12h20M4 4l16 16M20 4L4 20" />
+      </g>
+    </symbol>
+  </defs>
+  <!-- CLOUD -->
+  <use href="#cloud" width="350" height="222" transform="translate(80 90)" />
+  <style>
+    .snow {
+      animation: fall 1.8s linear infinite;
+      opacity: 0.95;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(20px); opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: translateY(125px); opacity: 0; }
+    }
+  </style>
+  <!-- SNOWFLAKES -->
+  <g>
+    <use href="#flake" x="140" y="260" width="18" height="18" class="snow" style="animation-delay: 0.25s" />
+    <use href="#flake" x="180" y="240" width="20" height="20" class="snow" style="animation-delay: 0.60s" />
+    <use href="#flake" x="220" y="270" width="18" height="18" class="snow" style="animation-delay: 0.10s" />
+    <use href="#flake" x="260" y="240" width="22" height="22" class="snow" style="animation-delay: 0.45s" />
+    <use href="#flake" x="300" y="260" width="16" height="16" class="snow" style="animation-delay: 0.75s" />
+    <use href="#flake" x="340" y="245" width="20" height="20" class="snow" style="animation-delay: 0.15s" />
+  </g>
+</svg>

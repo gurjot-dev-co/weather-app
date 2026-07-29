@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+
+<div class="login-form-bg">
+    <div class="login-form">
+        <h1 class="login-heading">Login</h1>
+        <hr>
+        <form action="/" method="get">
+            <div class="item">
+                <div class="input">
+                    <input type="text" placeholder="" name="username" class="username">
+                    <label for="username" class="labels">Username</label>
+                </div>
+            </div>
+            <div class="item">
+                <div class="input">
+                    <input type="password" placeholder="" name="Password" class="password">
+                    <label for="password" class="labels">Password</label>
+                </div>
+            </div>
+            <div class="item">
+                <a href="#" class="forget-password">Forget Password?</a>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+            <div class="item sign-up">
+                <p class="not-a-member item">Not a Member ?
+                    <a href="/signup" class="sign-up-link"> Signup</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" aria-labelledby="title desc" role="img" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!-- Day cloud gradient -->
+    <linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2f7fb"/>
+      <stop offset="1" stop-color="#dbeaf8"/>
+    </linearGradient>
+    <!-- Subtle stroke for cloud -->
+    <style type="text/css"><![CDATA[
+      .cloudStroke { stroke:#c7dcee; stroke-linejoin:round; }
+      .raindrop { fill:#4aa0e6; }
+      .splash { fill:#7fc1ef; opacity:0.0; }
+    ]]></style>
+    <!-- Basic raindrop shape -->
+    <symbol id="raindrop" viewBox="0 0 20 28">
+      <path class="raindrop" d="M10 0 C14 6 18 11 18 16 A8 8 0 1 1 2 16 C2 11 6 6 10 0z" />
+    </symbol>
+    <!-- small splash (oval) -->
+    <symbol id="splash" viewBox="0 0 24 6">
+      <ellipse class="splash" cx="12" cy="3" rx="10" ry="3" />
+    </symbol>
+  </defs>
+  <!-- Background transparent area is intentional so SVG blends with page -->
+  <g transform="translate(56 64) scale(0.8)">
+    <!-- Cloud group (floating) -->
+    <g id="cloud" transform="translate(40,20)">
+      <!-- Big cloud body -->
+      <path class="cloudStroke" fill="url(#cloudGrad)" stroke-width="6"
+        d="M220 100c-6-40-44-70-86-66-10-32-44-52-78-40-36 13-54 58-36 92-36-4-68 26-64 62 4 36 37 60 76 56h192c30-2 54-28 52-58-2-20-16-36-36-46z" />
+      <!-- subtle bobbing motion -->
+      <animateTransform attributeName="transform" type="translate" dur="6s" values="40,20; 40,24; 40,20" repeatCount="indefinite"/>
+    </g>
+    <!-- Raindrops group — positioned under cloud -->
+    <g id="rains" transform="translate(50,180)">
+      <!-- first drop -->
+      <use href="#raindrop" x="40" y="0" width="24" height="34">
+        <!-- fall animation -->
+        <animateTransform attributeName="transform" attributeType="XML" type="translate"
+          values="0 0; 0 90" dur="0.95s" begin="0s" repeatCount="indefinite" />
+        <!-- fade as it falls -->
+        <animate attributeName="opacity" values="1;1;0.0" keyTimes="0;0.85;1" dur="0.95s" begin="0s" repeatCount="indefinite"/>
+      </use>
+      <!-- splash for first drop -->
+      <use href="#splash" x="30" y="86" width="48" height="12">
+        <animate attributeName="opacity" values="0;0.9;0" dur="0.95s" begin="0s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" additive="sum" values="1;1.1;1" dur="0.95s" begin="0s" repeatCount="indefinite"/>
+      </use>
+      <!-- second drop (staggered) -->
+      <use href="#raindrop" x="100" y="-6" width="22" height="32">
+        <animateTransform attributeName="transform" attributeType="XML" type="translate"
+          values="0 0; 0 96" dur="1.05s" begin="0.22s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="1;1;0.0" keyTimes="0;0.88;1" dur="1.05s" begin="0.22s" repeatCount="indefinite"/>
+      </use>
+      <use href="#splash" x="92" y="92" width="44" height="12">
+        <animate attributeName="opacity" values="0;0.9;0" dur="1.05s" begin="0.22s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" additive="sum" values="1;1.08;1" dur="1.05s" begin="0.22s" repeatCount="indefinite"/>
+      </use>
+      <!-- third drop (staggered) -->
+      <use href="#raindrop" x="160" y="-2" width="20" height="30">
+        <animateTransform attributeName="transform" attributeType="XML" type="translate"
+          values="0 0; 0 84" dur="0.9s" begin="0.45s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="1;1;0.0" keyTimes="0;0.86;1" dur="0.9s" begin="0.45s" repeatCount="indefinite"/>
+      </use>
+      <use href="#splash" x="152" y="82" width="40" height="10">
+        <animate attributeName="opacity" values="0;0.9;0" dur="0.9s" begin="0.45s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="scale" additive="sum" values="1;1.12;1" dur="0.9s" begin="0.45s" repeatCount="indefinite"/>
+      </use>
+      <!-- a few faint drifting droplets behind for depth -->
+      <use href="#raindrop" x="10" y="8" width="12" height="18" opacity="0.35">
+        <animateTransform attributeName="transform" attributeType="XML" type="translate"
+          values="0 0; 0 70" dur="1.6s" begin="0.6s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.35;0.35;0" keyTimes="0;0.9;1" dur="1.6s" begin="0.6s" repeatCount="indefinite"/>
+      </use>
+    </g>
+    <!-- subtle ground shadow under cloud -->
+    <ellipse cx="176" cy="240" rx="120" ry="18" fill="#cfe8fb" opacity="0.08">
+      <animate attributeName="opacity" values="0.06;0.12;0.06" dur="6s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+</svg>

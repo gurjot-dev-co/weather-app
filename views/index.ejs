@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs") %>
+
+<main class="home-page">
+    <form action="/weather-stats" method="get" class="search">
+        <input type="text" class="search-input" name="location" id="search-bar" placeholder="Enter your city name">
+        <button class="search-icon-padding" type="submit">
+            <div class="search-icon"></div>
+        </button>
+    </form>
+</main>
+
+<script src="js/cloud-animation.js"></script>
+<script src="js/star-animation.js"></script>
+
+<%- include("partials/footer.ejs") %>

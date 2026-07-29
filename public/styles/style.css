@@ -1,0 +1,796 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    /* Now,.cloud elements with position: absolute are measured relative to the full body area, not the viewport */
+    position: relative;
+    /* Ensures the body expands naturally to fit all your page content. */
+    height: auto;
+    /* keeps it at least full-screen tall even if content is small. */
+    min-height: 100%;
+}
+
+body {
+    background: linear-gradient(to bottom, #1565c0, #42a5f5, #81d4fa);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    z-index: 0;
+}
+
+header {
+    position: relative;
+    z-index: 2;
+}
+
+.weather-logo {
+    position: relative;
+    z-index: 10;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2.5vw;
+    align-items: center;
+}
+
+li {
+    font-size: 19px;
+}
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    opacity: 0.85;
+}
+
+main.home-page {
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Basic cloud shape */
+.cloud {
+    position: absolute;
+    /* Allows clouds to freely float within <main> */
+    pointer-events: none;
+    /* So clicks pass through clouds — no interaction */
+    background: rgba(255, 255, 255, 0.8);
+    /* Semi-transparent white gives soft feel */
+    height: 60px;
+    width: 120px;
+    border-radius: 50px;
+    /* Rounds the rectangle into a pill/cloud shape */
+    /* Creates subtle glow and puffiness around the cloud */
+    box-shadow:
+        -40px 0 50px rgba(255, 255, 255, 0.7),
+        /* left blur */
+        40px 0 50px rgba(255, 255, 255, 0.7),
+        /* right blur */
+        0 20px 30px rgba(255, 255, 255, 0.6);
+    /* bottom light shadow */
+    filter: blur(20px);
+    /* Adds softness, blending edges of the cloud */
+    animation: floating linear infinite forwards;
+    /* Applies the drifting animation */
+    z-index: 0;
+    left: 0px;
+}
+
+/* Variations for visual variety */
+.cloud.small {
+    height: 40px;
+    width: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    /* Smaller clouds are slightly more transparent */
+}
+
+.cloud.large {
+    height: 80px;
+    width: 160px;
+    background: rgba(255, 255, 255, 0.9);
+    /* Larger clouds appear more solid */
+}
+
+@keyframes floating {
+    0% {
+        transform: translateX(-150px);
+        /* Start just off the left edge of the screen */
+        opacity: 0;
+        /* Invisible initially (fade-in effect) */
+    }
+
+    10% {
+        opacity: 1;
+        /* Fade in while entering view */
+    }
+
+    90% {
+        opacity: 1;
+        /* Stay visible for most of the path */
+    }
+
+    100% {
+        transform: translateX(100vw);
+        /* Move fully across to the right (110% width) */
+        opacity: 0;
+        /* Fade out near the edge */
+    }
+}
+
+footer {
+    height: 50vh;
+    background: linear-gradient(to top, #001A33, #003C8F);
+    color: whitesmoke;
+    position: relative;
+    bottom: 0;
+    width: 100vw;
+    overflow: hidden;
+    z-index: 10;
+    margin-top: auto;
+}
+
+.icons-copyright {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.star {
+    position: absolute;
+    height: 2px;
+    width: 2px;
+    background-color: white;
+    border-radius: 50%;
+    border: none;
+    animation: twinkle 3s linear infinite;
+    top: 10px;
+    right: 10px;
+}
+
+@keyframes twinkle {
+    0% {
+        background-color: rgba(255, 255, 255, 0.4)
+    }
+
+    25% {
+        background-color: rgba(255, 255, 255, 0.8)
+    }
+
+    50% {
+        background-color: rgba(255, 255, 255, 1)
+    }
+
+    75% {
+        background-color: rgba(255, 255, 255, 0.4)
+    }
+
+    100% {
+        background-color: rgba(255, 255, 255, 0.8)
+    }
+}
+
+footer .social_icons {
+    display: flex;
+    list-style: none;
+    padding: 65px 0px 0px 0px;
+    justify-content: center;
+}
+
+footer .social_icons li a {
+    background-color: whitesmoke;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    color: whitesmoke;
+    margin: 10px;
+    transition: 1s;
+    position: relative;
+    padding-bottom: 83px;
+}
+
+footer .social_icons li:first-child a {
+    /* Since it's an external SVG used as a bg-image, so CSS can’t directly
+   recolor it with fill or color. */
+    /* background: url("../images/facebook.svg") no-repeat center;
+    background-size: contain; */
+
+    /* "mask" only show the parts of the element that match the opaque 
+   (non-transparent) parts of this SVG. 
+   contain means “Scale the SVG to fit entirely inside the element 
+   (width and height), w/o cropping or stretching.” */
+    mask: url("../images/facebook.svg") no-repeat center;
+    mask-size: contain;
+    background-color: whitesmoke;
+    /* gives your element a solid fill color */
+    /* You’re painting the bg, then cutting out the icon shape with the mask,
+   revealing a colored SVG silhouette — w/o editing the SVG file itself. */
+}
+
+footer .social_icons li:first-child a:hover {
+    transform: translateY(-20px);
+    background-color: #1877f2;
+}
+
+footer .social_icons li:nth-child(2) a {
+    mask: url("../images/instagram.svg") no-repeat center;
+    mask-size: contain;
+}
+
+footer .social_icons li:nth-child(2) a:hover {
+    transform: translateY(-20px);
+    background: radial-gradient(circle at 30% 107%,
+            #fdf497 0%, #fdf497 5%,
+            #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+footer .social_icons li:nth-child(3) a {
+    mask: url("../images/linkedin.svg") no-repeat center;
+    mask-size: contain;
+}
+
+footer .social_icons li:nth-child(3) a:hover {
+    transform: translateY(-20px);
+    background-color: #0A66C2;
+}
+
+footer .social_icons li:nth-child(4) a {
+    /* mask: url("../images/twitter-x.svg") no-repeat center; */
+    mask: url("../images/github-logo.svg") no-repeat center;
+    mask-size: contain;
+    background-color: #ffffff;
+}
+
+footer .social_icons li:nth-child(4) a:hover {
+    transform: translateY(-20px);
+    background-color: #000000;
+}
+
+.copyright{
+    display: flex;
+    justify-content: center;
+    margin-top: vh;
+    color: whitesmoke;
+}
+
+.email-id{
+    display: flex;
+    justify-content: center;
+    margin-top: 1vh;
+    margin-bottom: -1vh;
+}
+
+@media (max-width: 1000px) {
+    .copyright {
+        margin-top: -3vh;
+    }
+
+    footer .social_icons {
+        padding: 20px 0px 0px 0px;
+    }
+}
+
+.search {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    width: 100vw;
+    margin-top: 30vh;
+    position: relative;
+    z-index: 10;
+}
+
+.search-input {
+    height: 62px;
+    width: 50px;
+    border: none;
+    background-color: #ddd;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 10px;
+    font-size: 20px;
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    padding-left: 55px;
+    transition: width 400ms ease,
+        display 0ms ease,
+        border-top-left-radius 0ms ease,
+        border-bottom-left-radius 0ms ease,
+        padding-left 0ms ease;
+}
+
+.search:hover .search-input,
+.search-input:focus,
+.search-input.search-focus {
+    width: 30vw;
+    display: inline-block;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 10px;
+    padding-left: 30px;
+}
+
+.search-input::placeholder {
+    font-size: 18px;
+    color: #888;
+    font-weight: 500;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-icon-padding {
+    background-color: #003C8F;
+    padding: 18px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-icon {
+    mask: url("../images/search.svg") no-repeat center;
+    mask-size: contain;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+}
+
+.weather-stats-page-main-sec {
+    position: relative;
+    /*makes clouds position relative to this */
+    min-height: 200vh;
+    /* make section fill viewport height */
+    overflow: hidden;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 0px auto;
+    padding: 50px 0px;
+    justify-content: space-evenly;
+}
+
+/* add rgba instead of opacity. opacity affects everything inside the box
+ it's applied on (all bcm faded to eg, 40% visibility) */
+.weather-stats-page-main-sec .stats-box {
+    background-color: rgba(221, 221, 221, 0.4);
+    height: 46vh;
+    width: 35vw;
+    border-radius: 10px;
+    /* opacity: 0.4; */
+    position: relative;
+    z-index: 10;
+    overflow: auto;
+}
+
+@media (max-width: 750px) {
+    .weather-stats-page-main-sec {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-stats-page-main-sec .stats-box {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 680px) {
+    .weather-stats-page-main-sec {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-stats-page-main-sec .stats-box {
+        width: 70vw;
+    }
+}
+
+.weather-icon {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    /* color: #0A1A2F; */
+}
+
+.temp {
+    display: flex;
+}
+
+.temp .min-temp {
+    font-size: 1.4rem;
+}
+
+.temp .max-temp {
+    margin-left: 6px;
+    font-size: 1.4rem;
+}
+
+.temp p {
+    text-align: center;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.weather-description {
+    font-size: 1.7rem;
+    font-weight: bolder;
+    letter-spacing: 1.3px;
+    margin-bottom: 8px;
+}
+
+.weather-stats-page-main-sec {
+    position: relative;
+    /*makes clouds position relative to this */
+    min-height: 200vh;
+    /* make section fill viewport height */
+    overflow: hidden;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 0px auto;
+    padding: 50px 0px;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 750px) {
+    .weather-stats-page-main-sec {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-stats-page-main-sec .stats-box {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 680px) {
+    .weather-stats-page-main-sec {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-stats-page-main-sec .stats-box {
+        width: 70vw;
+    }
+}
+
+.stats-box h2 {
+    text-align: center;
+    padding-bottom: 12px;
+    padding-top: 10px;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.stats-box .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    color: #263544;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    font-weight: 800;
+}
+
+.content div {
+    max-width: 50%;
+    margin-right: auto;
+}
+
+.stats-box img {
+    margin: 0 20px -5px 15px;
+}
+
+.stats-box .info {
+    margin-top: 2px;
+}
+
+.wind-speed p:first-child,
+.compass p:first-child,
+.humidity-in-air .content .info p,
+.air-pressure p:nth-child(2),
+.cloud-coverage p:first-child,
+.visibility .content p:first-child {
+    padding-bottom: 8px;
+}
+
+.air-pressure p:nth-child(2) {
+    padding-top: 8px;
+}
+
+.humidity-in-air .content .info ul,
+.compass .content .info ul {
+    list-style: none;
+}
+
+.humidity-in-air .content .info ul li,
+.compass .content .info ul li {
+    padding-bottom: 4px;
+}
+
+.wind-speed .content img {
+    width: 46%;
+    height: auto;
+}
+
+
+/* Login form */
+
+.login-form-bg {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 75vh;
+    width: 370px;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.login-form .item,
+.login-form form .item,
+.login-form form .item .item {
+    margin: 18px;
+}
+
+.login-form hr {
+    width: 99%;
+    border: 1px solid #d9d9d9;
+}
+
+.login-form form .item .input {
+    position: relative;
+    padding: 15px;
+}
+
+.login-form form .item .input .username {
+    height: 20px;
+    outline: none;
+    width: 290px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-color: #adadad;
+}
+
+.login-form form .item .input .password {
+    height: 20px;
+    outline: none;
+    width: 290px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-color: #adadad;
+}
+
+.login-form form .item .input .labels {
+    position: absolute;
+    left: 6%;
+    top: 13%;
+    color: #adadad;
+}
+
+.login-form form .item .input .username:focus+.labels,
+.login-form form .item .input .password:focus+.labels {   
+/* Use + to target immediate siblings.(i.e, that r 1 after 1 immediately.).
+If they are not immediate siblings (eg, has another sibling in b/w them)
+use the general sibling combinator ~ instead !  */
+    top: -40%;
+    color: #2691d9;
+}
+
+.login-form form .item .input .username:focus,
+.login-form form .item .input .password:focus{ 
+    border-bottom-color: #2691d9; 
+}
+
+.login-form form .item .input .username:not(:placeholder-shown),
+.login-form form .item .input .password.password:not(:placeholder-shown){
+    border-bottom-color: #2691d9;
+}
+
+.login-form form .item .input .username:not(:placeholder-shown) + .labels,
+.login-form form .item .input .password:not(:placeholder-shown) + .labels {
+    top: -40%;
+    color: #2691d9;   
+}
+
+.forget-password {
+    color: #adadad;
+    text-decoration: none;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.forget-password:hover{
+    border-bottom: 1.5px solid #adadad;
+}
+
+.login-form form .sign-up {
+    position: relative;
+}
+
+.login-form form .sign-up .item {
+    position: relative;
+    top: 10px;
+}
+
+.login-button {
+    height: 50px;
+    width: 290px;
+    margin-left: 32px;
+    border-radius: 30px;
+    outline: none;
+    border: 1.3px solid black;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 200ms ease-in;
+    margin-top: 5px;
+}
+
+.login-button:hover {
+    background-color: #2691d9;
+    color: white;
+    border: none;
+}
+
+.sign-up {
+    text-align: center;
+    color: #666666;
+    margin-top: 30px;
+}
+
+.sign-up-link {
+    text-decoration: none;
+    color: #2691d9;
+}
+
+
+/* Sign up form */
+
+.sign-up-bg {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-form {
+    background-color: white;
+    height: 80vh;
+    width: 330px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.sign-up-form form .input {
+    margin: 30px;
+    position: relative;
+}
+
+.sign-up-form form .input input {
+    padding-left: 10px;
+}
+
+.sign-up-form .sign-up-heading {
+    margin: 15px;
+}
+
+.sign-up-form form .input .item {
+    width: 98%;
+    height: 30px;
+}
+
+.sign-up-form hr {
+    border: 1px solid #d9d9d9;
+}
+
+.sign-up-form form .input .input-item {
+    border: none;
+    border-bottom: 2px solid #adadad;
+    outline: none;
+}
+
+.sign-up-form form .input .input-item:not(:placeholder-shown)+label,
+.sign-up-form form .input .input-item:focus+label {
+    bottom: 35px;
+    color: #2691d9;
+}
+
+.sign-up-form form .input .input-item:not(:placeholder-shown),
+.sign-up-form form .input .input-item:focus{
+    border-bottom-color: #2691d9;
+}
+
+.sign-up-form form .input label {
+    position: absolute;
+    bottom: 10px;
+    left: 7px;
+    color: #adadad;
+}
+
+.sign-up-button {
+    width: 80%;
+    height: 45px;
+    border-radius: 30px;
+    border: 1.3px solid black;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.sign-up-button:hover {
+    background-color: #2691d9;
+    color: white;
+    border: none;
+}
+
+.sign-up-form form .anchors{
+    margin-top: 20px;
+}
+
+.sign-up-form form .anchors>p {
+    color: #666666;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.sign-up-form form .anchors>a:nth-child(2) {
+    text-decoration: none;
+    color: #2691d9;
+}
+
+@media (min-width: 1000px) {
+    .sign-up-form .sign-up-heading {
+        margin: 20px;
+    }
+
+    .sign-up-form form .input .input-item {
+        height: 35px;
+    }
+}

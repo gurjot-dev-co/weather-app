@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="208" height="200" viewBox="150 100 250 326">
+    <defs>
+        <symbol id="meteoconsWindBeaufort10" viewBox="0 -6 342 244">
+            <path fill="none" stroke="#A3D8F4" stroke-dasharray="148" stroke-linecap="round" stroke-miterlimit="10" stroke-width="25" d="M264.2 21.3A40 40 0 1 1 293 89H9">
+                <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 1480" />
+            </path>
+            <path fill="none" stroke="#A3D8F4" stroke-dasharray="110" stroke-linecap="round" stroke-miterlimit="10" stroke-width="25" d="M148.2 212.7A40 40 0 1 0 177 145H9">
+                <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 440" />
+            </path>
+        </symbol>
+    </defs>
+    <use width="342" height="234" href="#meteoconsWindBeaufort10" transform="translate(85 139)" />
+</svg>

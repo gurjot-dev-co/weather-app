@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .weather-icon {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 50px;
+    }
+
+    /* change the svg to img */
+    .weather-icon svg {
+        margin-bottom: 15px;
+    }
+
+    .temp {
+        display: flex;
+    }
+
+    .temp .min-temp {
+        font-size: 1.4rem;
+    }
+
+    .temp .max-temp {
+        margin-left: 6px;
+        font-size: 1.4rem;
+    }
+
+    .temp p {
+        text-align: center;
+        font-weight: 600;
+        font-size: 19px;
+    }
+
+    .weather-description {
+        font-size: 1.7rem;
+        font-weight: bolder;
+        letter-spacing: 1.3px;
+    }
+
+    .weather-stats-page-main-sec {
+        position: relative;
+        /*makes clouds position relative to this */
+        min-height: 200vh;
+        /* make section fill viewport height */
+        overflow: hidden;
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin: 0px auto;
+        padding: 50px 0px;
+        justify-content: space-evenly;
+    }
+
+    /* add rgba instead of opacity. opacity affects everything inside the box
+ it's applied on (all bcm faded to eg, 40% visibility) */
+    .weather-stats-page-main-sec .stats-box {
+        background-color: rgba(221, 221, 221, 0.4);
+        height: 45vh;
+        width: 35vw;
+        border-radius: 10px;
+        /* opacity: 0.4; */
+        position: relative;
+        z-index: 10;
+        overflow: auto;
+    }
+
+    @media (max-width: 750px) {
+        .weather-stats-page-main-sec {
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .weather-stats-page-main-sec .stats-box {
+            width: 60vw;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .weather-stats-page-main-sec {
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .weather-stats-page-main-sec .stats-box {
+            width: 70vw;
+        }
+    }
+
+    .stats-box h2 {
+        text-align: center;
+    }
+
+    .stats-box .content {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        color: #000;
+        font-weight: 600;
+        font-size: 16.5px;
+        padding-bottom: 10px;
+    }
+
+    .content div {
+        max-width: 50%;
+        margin-right: auto;
+    }
+
+    .stats-box svg {
+        margin: 0 20px 0 15px;
+    }
+
+    /* .temp-feels-like .content svg {
+        margin: 0;
+        margin-left: -150px;
+    } */
+
+    /* .temp-feels-like .content .info {
+        margin-left: -160px;
+    } */
+
+    @media (max-width: 750px) {
+        /* .temp-feels-like .content svg {
+            margin-left: -120px;
+        } */
+
+        /* .temp-feels-like .content .info {
+            margin-left: -110px;
+        } */
+    }
+</style>
+
+<body>
+    <div class="weather-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="142" height="142" viewBox="0 0 512 512">
+            <defs>
+                <linearGradient id="sunGrad" x1="150" x2="234" y1="119.2" y2="264.8">
+                    <stop offset="0" stop-color="#fbbf24" />
+                    <stop offset="0.5" stop-color="#fbbf24" />
+                    <stop offset="1" stop-color="#f59e0b" />
+                </linearGradient>
+            </defs><!-- Clean sun, no diagonal cuts -->
+            <g transform="translate(64 64)"><!-- Sun circle -->
+                <circle cx="192" cy="192" r="84" fill="url(#sunGrad)" stroke="#f8af18" stroke-width="6" />
+                <!-- Rotating rays -->
+                <path fill="none" stroke="#fbbf24" stroke-linecap="round" stroke-width="24"
+                    d="M192 61.7V12m0 360v-49.7m92.2-222.5l35-35M64.8 319.2l35.1-35.1m0-184.4l-35-35m254.5 254.5l-35.1-35.1M61.7 192H12m360 0h-49.7">
+                    <animateTransform attributeName="transform" type="rotate" dur="6s" repeatCount="indefinite"
+                        values="0 192 192; 45 192 192" />
+                </path>
+            </g>
+        </svg>
+
+        <div class="weather-description">
+            Clear Sky
+        </div>
+
+        <div class="temp">
+            <h3 class="min-temp">Min temp |
+                <p>23°C</p>
+            </h3>
+
+            <h3 class="max-temp"> Max temp
+                <p>30°C</p>
+            </h3>
+        </div>
+    </div>
+
+    <main class="weather-stats-page-main-sec">
+        <div class="stats-box box-one temp-feels-like">
+            <h2>Temperature</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100" height="180" fill="currentColor" class="bi bi-thermometer-low" viewBox="5 0 6 16">
+                    <path fill="#3FA9F5"
+                        d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V9.5a.5.5 0 0 1 1 0v1.585a1.5 1.5 0 0 1 1 1.415" />
+                    <path fill="#6E6E6E"
+                        d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1" />
+                </svg>
+                <div class="info">
+                    <p>Actual Temperature : 28°C</p>
+                    <p>Feels Like : 26°C</p>
+                    <p>Feels less than the actual temperature due to high wind</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-two air-pressure">
+            <h2>Air Pressure</h2>
+            <div class="content">
+                <svg fill="#006eff" height="190px" width="190px" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512">
+                    <g>
+                        <path
+                            d="M490.407,465.492H350.169l-14.921-26.25c-1.437-2.529-4.121-4.09-7.029-4.09h-45.811v-57.581 c92.149-12.892,163.301-92.217,163.301-187.862C445.709,85.103,360.606,0,256,0S66.291,85.103,66.291,189.709 c0,95.645,71.152,174.97,163.301,187.862v57.581h-45.811c-2.907,0-5.592,1.561-7.029,4.09l-14.921,26.25H21.593 C9.687,465.492,0,475.18,0,487.085v3.32C0,502.312,9.687,512,21.593,512h371.025c4.466,0,8.084-3.618,8.084-8.084 c0-4.466-3.618-8.084-8.084-8.084H21.593c-2.991,0-5.425-2.434-5.425-5.425v-3.32c0-2.991,2.434-5.425,5.425-5.425h144.941 h178.931h144.941c2.991,0,5.425,2.434,5.425,5.425v3.32c0,2.991-2.434,5.425-5.425,5.425h-70.48 c-4.466,0-8.084,3.619-8.084,8.084c0,4.466,3.619,8.084,8.084,8.084h70.48c11.906,0,21.593-9.687,21.593-21.593v-3.32 C512,475.18,502.313,465.492,490.407,465.492z M82.459,189.709C82.459,94.018,160.31,16.168,256,16.168 s173.541,77.85,173.541,173.541c0,89.942-68.779,164.115-156.502,172.704c-11.29,1.104-22.789,1.104-34.079,0 C151.238,353.824,82.459,279.651,82.459,189.709z M266.24,379.143v56.011h-20.48v-56.011c0.039,0.002,0.079,0.002,0.117,0.004 c1.494,0.079,2.993,0.137,4.496,0.181c0.184,0.005,0.369,0.016,0.553,0.022c1.686,0.044,3.377,0.069,5.074,0.069 s3.388-0.025,5.074-0.069c0.184-0.005,0.369-0.015,0.553-0.022c1.503-0.044,3.002-0.102,4.496-0.181 C266.161,379.145,266.201,379.145,266.24,379.143z M180.43,465.492l8.055-14.171h49.191h36.648h49.192l8.055,14.171H180.43z">
+                        </path>
+                        <path
+                            d="M383.137,282.366c2.633-3.606,1.848-8.663-1.758-11.296c-3.606-2.634-8.663-1.846-11.296,1.758 c-26.577,36.37-69.225,58.086-114.082,58.086c-75.491,0-137.335-59.549-141.027-134.141h21.979c4.466,0,8.084-3.62,8.084-8.084 c0-3.539-2.276-6.539-5.442-7.634c1.777-26.632,12.285-50.642,28.688-69.284c1.115,0.543,2.325,0.822,3.538,0.822 c2.068,0,4.138-0.789,5.717-2.368c2.496-2.496,3.011-6.218,1.558-9.228c18.747-16.364,42.828-26.757,69.381-28.419 c1.176,3.011,4.098,5.146,7.525,5.146c3.423,0,6.342-2.13,7.522-5.135c26.239,1.719,50.327,12.353,69.162,28.891 c-1.176,2.917-0.583,6.379,1.781,8.743c1.579,1.578,3.649,2.368,5.717,2.368c1.041,0,2.083-0.202,3.061-0.602 c16.609,18.736,27.357,42.76,29.161,69.066c-3.163,1.097-5.437,4.095-5.437,7.632c0,4.465,3.618,8.084,8.084,8.084h21.973 c-0.913,18.707-5.453,36.725-13.549,53.651c-1.926,4.028-0.223,8.855,3.804,10.781c4.025,1.927,8.854,0.224,10.781-3.804 c10.16-21.242,15.313-44.017,15.313-67.691c0-86.776-70.597-157.373-157.373-157.373S98.627,102.934,98.627,189.709 S169.224,347.082,256,347.082C305.999,347.082,353.527,322.89,383.137,282.366z M360.867,95.256 c20.671,22.926,33.943,52.64,36.035,85.349h-8.324c-1.86-29.701-13.512-57.573-33.289-79.773L360.867,95.256z M264.084,48.742 c32.599,1.85,62.271,14.807,85.288,35.14l-5.536,5.536c-22.29-19.705-50.156-31.221-79.752-33V48.742z M247.916,48.742v7.677 c-29.589,1.78-57.461,13.298-79.751,33.002l-5.538-5.538C185.644,63.551,215.316,50.592,247.916,48.742z M151.133,95.256 l5.577,5.577c-19.766,22.193-31.427,50.068-33.289,79.773h-8.323C117.19,147.897,130.462,118.183,151.133,95.256z">
+                        </path>
+                        <path
+                            d="M316.036,129.606c-2.942-2.398-7.149-2.431-10.125-0.08l-67.249,53.143c-2.839,2.247-5.161,4.984-6.898,8.133 c-0.047,0.087-0.094,0.175-0.139,0.263l-0.327,0.646c-4.251,8.432-3.834,18.276,1.118,26.333 c0.036,0.059,0.077,0.127,0.102,0.168c0.112,0.179,0.227,0.355,0.345,0.529l0.086,0.128c0.12,0.183,0.244,0.367,0.372,0.548 c0.071,0.102,0.151,0.212,0.251,0.349c0.189,0.259,0.38,0.516,0.579,0.77c0.057,0.073,0.119,0.152,0.198,0.249 c0.237,0.294,0.477,0.583,0.723,0.863l0.019,0.022c0.055,0.065,0.11,0.127,0.165,0.19c0.235,0.26,0.47,0.516,0.703,0.759 l0.216,0.22c0.222,0.226,0.446,0.447,0.675,0.664c0.047,0.045,0.095,0.089,0.143,0.134l0.244,0.223 c0.195,0.178,0.389,0.351,0.591,0.525c0.032,0.028,0.116,0.099,0.151,0.127c0.141,0.117,0.284,0.236,0.429,0.352l0.378,0.305 c0.035,0.028,0.07,0.055,0.106,0.082c0.191,0.146,0.383,0.29,0.637,0.475l0.334,0.239c0.262,0.185,0.532,0.366,0.806,0.547 c0.04,0.026,0.058,0.038,0.098,0.064c0.037,0.024,0.16,0.105,0.197,0.127c0.3,0.19,0.607,0.375,0.99,0.596l0.12,0.068 c0.315,0.181,0.638,0.354,0.961,0.521c0.114,0.061,0.227,0.12,0.342,0.176c0.275,0.137,0.555,0.267,0.834,0.397 c0.044,0.02,0.069,0.031,0.113,0.052l0.246,0.111c0.234,0.105,0.471,0.201,0.803,0.334c0.181,0.075,0.363,0.149,0.53,0.212 c0.105,0.04,0.21,0.078,0.318,0.114c2.963,1.07,6.064,1.614,9.218,1.614c6.047,0,11.993-2.068,16.729-5.813l0.564-0.444 c0.084-0.066,0.166-0.134,0.247-0.203c2.737-2.336,4.952-5.159,6.583-8.394l38.581-76.534 C319.85,136.122,318.974,132.004,316.036,129.606z M265.125,208.762c-0.637,1.263-1.491,2.368-2.538,3.285l-0.433,0.342 c-1.934,1.53-4.256,2.338-6.714,2.338c-1.272,0-2.521-0.218-3.714-0.649c-0.046-0.017-0.093-0.035-0.14-0.051l-0.236-0.097 c-0.019-0.008-0.092-0.037-0.111-0.044l-0.261-0.112c-0.128-0.059-0.257-0.116-0.383-0.179c-0.036-0.019-0.072-0.039-0.11-0.057 c-0.122-0.063-0.245-0.125-0.363-0.193c-0.03-0.018-0.063-0.036-0.093-0.053c-0.013-0.008-0.027-0.016-0.042-0.024 c-0.124-0.072-0.247-0.146-0.346-0.208l-0.123-0.08c-0.11-0.071-0.218-0.142-0.26-0.171l-0.686-0.517 c-0.028-0.024-0.061-0.05-0.089-0.072l-0.511-0.451c-0.084-0.081-0.167-0.163-0.249-0.247c-0.015-0.015-0.107-0.107-0.121-0.122 c-0.098-0.101-0.193-0.206-0.288-0.312c-0.027-0.032-0.056-0.066-0.084-0.098c-0.095-0.108-0.187-0.22-0.305-0.367 c-0.017-0.022-0.033-0.043-0.051-0.065c-0.082-0.104-0.158-0.21-0.184-0.244l-0.117-0.162c-0.015-0.021-0.029-0.042-0.049-0.068 l-0.245-0.366c0,0-0.022-0.032-0.039-0.059c-0.015-0.024-0.03-0.048-0.045-0.073c-1.996-3.245-2.168-7.205-0.46-10.589 l0.247-0.492c0.689-1.213,1.601-2.274,2.711-3.152l38.551-30.465L265.125,208.762z">
+                        </path>
+                        <path
+                            d="M300.936,260.155c0-4.465-3.618-8.084-8.084-8.084h-73.297c-4.466,0-8.084,3.62-8.084,8.084 c0,4.465,3.619,8.084,8.084,8.084h73.297C297.318,268.239,300.936,264.621,300.936,260.155z">
+                        </path>
+                        <path
+                            d="M237.676,280.301c-4.466,0-8.084,3.618-8.084,8.084c0,4.466,3.618,8.084,8.084,8.084h36.648 c4.466,0,8.084-3.619,8.084-8.084c0-4.466-3.619-8.084-8.084-8.084H237.676z">
+                        </path>
+                    </g>
+                </svg>
+
+                <div class="info">
+                    <p>340hPa</p>
+                    <p>Some text in here</p>
+                    <p>Some text in here...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-three humidity-in-air">
+            <h2>Atmospheric Humidity</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="130" height="190" viewBox="174 133 164 245.6">
+                    <defs>
+                        <linearGradient id="meteoconsHumidityFill0" x1="14.8" x2="124.2" y1="42.3" y2="231.7"
+                            gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#3392d6" />
+                            <stop offset=".5" stop-color="#3392d6" />
+                            <stop offset="1" stop-color="#2477b2" />
+                        </linearGradient>
+                        <symbol id="meteoconsHumidityFill1" viewBox="0 0 164 245.6">
+                            <path fill="url(#meteoconsHumidityFill0)" stroke="#2885c7" stroke-miterlimit="10"
+                                stroke-width="4"
+                                d="M82 3.6c-48.7 72-80 117-80 160.7s35.8 79.3 80 79.3s80-35.5 80-79.3S130.7 75.5 82 3.6Z">
+                                <animateTransform additive="sum" attributeName="transform" calcMode="spline" dur="6s"
+                                    keySplines=".42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite" type="scale"
+                                    values="1 1; 1 .9; 1 1" />
+                            </path>
+                        </symbol>
+                    </defs>
+                    <use width="164" height="245.6" href="#meteoconsHumidityFill1"
+                        transform="translate(173.9 133.01)" />
+                    <path fill="#fff"
+                        d="M218.8 250.5q4.8-4.5 13.7-4.5t13.6 4.5q4.8 4.4 4.8 12.4v8q0 7.8-4.8 12.2t-13.6 4.4q-9 0-13.7-4.4t-4.8-12.2v-8q0-8 4.8-12.4Zm71.2-1.6a2.8 2.8 0 0 1-.6 2.6l-53 73.3a9.4 9.4 0 0 1-2.8 2.8a12.3 12.3 0 0 1-4.6.6h-4.4c-1.3 0-2.1-.4-2.5-1.1a2.8 2.8 0 0 1 .7-2.8l53-73.3a7 7 0 0 1 2.6-2.7a12.7 12.7 0 0 1 4.4-.5h4.9c1.2 0 2 .4 2.3 1.1Zm-57.5 7.6q-7.7 0-7.7 7v6.7q0 7 7.7 7t7.7-7v-6.8q0-6.9-7.7-6.9Zm33.4 36.4q4.7-4.5 13.7-4.5t13.6 4.5q4.8 4.5 4.8 12.4v8q0 7.8-4.8 12.2t-13.7 4.5q-8.9 0-13.6-4.4t-4.8-12.3v-8q0-8 4.8-12.4Zm13.6 6.1q-7.6 0-7.6 7v6.6q0 7 7.6 7t7.7-7v-6.7q0-6.9-7.7-6.9Z" />
+                </svg>
+
+                <div class="info">
+                    <p>50%</p>
+                    <p>More text...</p>
+                    <p>More text...............</p>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-four wind-speed">
+            <h2>Wind Speed</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="208" height="200" viewBox="180 100 230 326">
+                    <defs>
+                        <linearGradient id="meteoconsWindBeaufort5Fill0" x1="138.5" x2="224.2" y1="5.1" y2="153.5"
+                            gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#d4d7dd" />
+                            <stop offset=".5" stop-color="#d4d7dd" />
+                            <stop offset="1" stop-color="#bec1c6" />
+                        </linearGradient>
+                        <linearGradient id="meteoconsWindBeaufort5Fill1" x1="77.7" x2="169" y1="96.2" y2="254.4"
+                            href="#meteoconsWindBeaufort5Fill0" />
+                        <symbol id="meteoconsWindBeaufort5Fill2" viewBox="0 0 348 240">
+                            <path fill="none" stroke="url(#meteoconsWindBeaufort5Fill0)" stroke-dasharray="148"
+                                stroke-linecap="round" stroke-miterlimit="10" stroke-width="24"
+                                d="M267.2 24.3A40 40 0 1 1 296 92H12">
+                                <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite"
+                                    values="0; 2664" />
+                            </path>
+                            <path fill="none" stroke="url(#meteoconsWindBeaufort5Fill1)" stroke-dasharray="110"
+                                stroke-linecap="round" stroke-miterlimit="10" stroke-width="24"
+                                d="M151.2 215.7A40 40 0 1 0 180 148H12">
+                                <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite"
+                                    values="0; 1320" />
+                            </path>
+                        </symbol>
+                    </defs>
+                    <use width="348" height="240" href="#meteoconsWindBeaufort5Fill2" transform="translate(82 136)" />
+                </svg>
+                <div class="info">
+                    <p>5 Km/h</p>
+                    <p>More info...........</p>
+                    <p>More info....</p>
+                    <p>More info....</p>
+                    <p>More info....</p>
+                    <p>More info....</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-five wind-degree compass">
+            <h2>Wind Direction</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="185" height="185" viewBox="100 100 312 312">
+                    <circle cx="256" cy="256" r="144" fill="none" stroke="#475569" stroke-miterlimit="10"
+                        stroke-width="12" />
+                    <path fill="#475569"
+                        d="M259.2 152v-10.4h4.6v18h-4.7l-6.3-10.4v10.4h-4.6v-18h4.7Zm103.3 105.7v3.3h9.8v4h-14.5v-18H372v4h-9.5v3h8.3v3.8Zm-106.4 116a8.4 8.4 0 0 1-5.4-1.6a5.8 5.8 0 0 1-2-4.4h4.4c0 1.6 1.1 2.4 3.1 2.4c1.8 0 2.6-.6 2.6-1.7a1.3 1.3 0 0 0-.4-1a4.6 4.6 0 0 0-1.6-.7l-3.4-.7c-2.9-.7-4.4-2.4-4.4-4.9a5 5 0 0 1 1.7-3.9a7.5 7.5 0 0 1 5.1-1.5a8 8 0 0 1 5 1.5a5.2 5.2 0 0 1 2 4h-4.3c-.2-1.4-1-2-2.7-2a2.9 2.9 0 0 0-1.6.4a1.3 1.3 0 0 0-.6 1c0 .8.5 1.3 1.6 1.6l3.5.8q4.7 1.1 4.7 5.1a4.9 4.9 0 0 1-2 4.1a8.5 8.5 0 0 1-5.3 1.5ZM156.2 255l2-8h4.7l-5.2 18h-4.5l-2.5-11.5l-2.3 11.5h-4.6l-5.2-18h4.7l2 8l.9 4.2l.7-4.3l1.7-7.9h4.4l1.8 8l.6 4.1Z" />
+                    <g>
+                        <!-- North -->
+                        <g transform="rotate(0 256 256)">
+                            <!-- East -->
+                            <!-- <g transform="rotate(87 256 256)"> -->
+                            <!-- South -->
+                            <!-- <g transform="rotate(180 256 256)"> -->
+                            <!-- West -->
+                            <!-- <g transform="rotate(-90 256 256)"> -->
+                            <!-- Northeast -->
+                            <!-- <g transform="rotate(45 256 256)"> -->
+                            <!-- Southeast -->
+                            <!-- <g transform="rotate(135 256 256)"> -->
+                            <!-- Southwest -->
+                            <!-- <g transform="rotate(225 256 256)"> -->
+                            <!-- Northwest -->
+                            <!-- <g transform="rotate(-45 256 256)"> -->
+                            <path fill="#ef4444" d="m256 172l-24 84h48l-24-84z" />
+                            <path fill="#e2e8f0" d="m232 256l24 84l24-84h-48z" />
+                        </g>
+                        <animateTransform additive="sum" attributeName="transform" calcMode="spline" dur="2s"
+                            keySplines=".42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite" type="rotate"
+                            values="-6 256 256; 6 256 256; -6 256 256" />
+                    </g>
+                </svg>
+                <div class="info">
+                    <p>90°</p>
+                    <p>More info......</p>
+                    <p>More info......</p>
+                    <p>More info......</p>
+                    <p>More info......</p>
+                    <p>More info......</p>
+                </div>
+            </div>
+        </div>
+        <div class="stats-box box-six cloud-coverage">
+            <h2>Cloud Coverage</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="7 0 13 20" width="230" height="200">
+                    <g>
+                        <animateTransform attributeName="transform" type="translate" values="0 0; 0 -2; 0 0" dur="4s"
+                            repeatCount="indefinite" />
+                        <path fill="#60A5FA" d="M19 18H6a4 4 0 0 1 0-8h.26A6 6 0 0 1 18 9.34 4.5 4.5 0 0 1 19 18z" />
+                        <text x="12" y="15" font-size="7" font-family="Arial" fill="white" text-anchor="middle"
+                            font-weight="bold">%</text>
+                    </g>
+                </svg>
+
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200"> -->
+
+                <div class="info">
+                    <p>30%</p>
+                </div>
+            </div>
+        </div>
+        <div class="stats-box box-seven visibility">
+            <h2>Visibility</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="188" height="188" viewBox="0 0 128 128">
+                    <path fill="#FAFAFA"
+                        d="M64.32 103.32c-34.03 0-53.56-33.13-56.94-39.38c3.07-6.27 20.91-39.26 56.94-39.26s53.87 32.98 56.94 39.26c-3.38 6.25-22.92 39.38-56.94 39.38" />
+                    <path fill="#B0BEC5"
+                        d="M64.32 27.12c15.81 0 29.84 6.42 41.7 19.09c6.63 7.08 10.73 14.26 12.49 17.67c-4.51 7.99-23.05 36.99-54.19 36.99c-14.88 0-28.63-6.45-40.89-19.17c-6.89-7.15-11.37-14.41-13.3-17.82c1.75-3.41 5.86-10.6 12.49-17.67c11.86-12.67 25.89-19.09 41.7-19.09m0-4.88C22.56 22.24 4.66 64 4.66 64s20.25 41.76 59.66 41.76S123.97 64 123.97 64s-17.9-41.76-59.65-41.76" />
+                    <path fill="#B0BEC5"
+                        d="M64.32 37c26.97 0 45.47 16.51 53.66 27.71c.96 1.31 1.99-4.99 1.12-6.36c-7.84-12.26-25.41-32.91-54.77-32.91S17.38 46.1 9.54 58.36c-.88 1.37.3 6.83 1.41 5.64c8.54-9.17 26.39-27 53.37-27" />
+                    <circle cx="64.32" cy="60.79" r="33.15" fill="#4DA3FF" />
+                    <path fill="#1E6ACB"
+                        d="M64.32 37c10.87 0 20.36 2.68 28.36 6.62c-5.81-9.58-16.34-15.97-28.36-15.97c-12.28 0-23 6.69-28.72 16.61C43.61 40.04 53.18 37 64.32 37" />
+                    <circle cx="64.32" cy="60.79" r="15.43" fill="#212121" />
+                    <circle cx="88.86" cy="59.37" r="7.72" fill="#B9DBFF" />
+                    <path fill="#616161"
+                        d="M7.21 67.21c-.52 0-1.05-.13-1.54-.4a3.207 3.207 0 0 1-1.27-4.35c.85-1.55 21.28-40.21 59.92-40.21s58.47 37.89 59.29 39.41c.84 1.56.27 3.5-1.29 4.35c-1.56.84-3.5.27-4.35-1.29c-.18-.34-18.88-33.86-53.66-33.86c-34.79 0-54.11 34.34-54.3 34.69a3.185 3.185 0 0 1-2.8 1.66" />
+                </svg>
+                <div class="info">
+                    <p>5 Km</p>
+                    <p>Excellent Visibility</p>
+                    <p>More info...</p>
+                    <p>More info...</p>
+                </div>
+            </div>
+        </div>
+        <div class="stats-box box-eight sunrise-time">
+            <h2>Sunrise Time</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="190" viewBox="65 50 395 305">
+                    <defs>
+                        <linearGradient id="meteoconsSunriseFill0" x1="150" x2="234" y1="119.2" y2="264.8"
+                            gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#fbbf24" />
+                            <stop offset=".5" stop-color="#fbbf24" />
+                            <stop offset="1" stop-color="#f59e0b" />
+                        </linearGradient>
+                        <clipPath id="meteoconsSunriseFill1">
+                            <path fill="none" d="M512 306H304l-35.9-31.4a18.4 18.4 0 0 0-24.2 0L208 306H0V0h512Z" />
+                        </clipPath>
+                        <symbol id="meteoconsSunriseFill2" viewBox="0 0 384 384">
+                            <circle cx="192" cy="192" r="84" fill="url(#meteoconsSunriseFill0)" stroke="#f8af18"
+                                stroke-miterlimit="10" stroke-width="6" />
+                            <path fill="none" stroke="#fbbf24" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="24"
+                                d="M192 61.7V12m0 360v-49.7m92.2-222.5l35-35M64.8 319.2l35.1-35.1m0-184.4l-35-35m254.5 254.5l-35.1-35.1M61.7 192H12m360 0h-49.7">
+                                <animateTransform additive="sum" attributeName="transform" dur="11s"
+                                    repeatCount="indefinite" type="rotate" values="0 192 192; 45 192 192" />
+                            </path>
+                        </symbol>
+                    </defs>
+                    <g clip-path="url(#meteoconsSunriseFill1)">
+                        <use width="384" height="384" href="#meteoconsSunriseFill2" transform="translate(64 100)" />
+                    </g>
+                    <path fill="none" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"
+                        d="M128 332h88l40-36l40 36h88" />
+                </svg>
+                <div class="info">
+                    <p>7:20AM</p>
+                    <p>More info...</p>
+                    <p>More info...</p>
+                </div>
+            </div>
+        </div>
+        <div class="stats-box box-nine sunset-time">
+            <h2>Sunset Time</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="190" viewBox="65 50 395 305">
+                    <defs>
+                        <linearGradient id="meteoconsSunsetFill0" x1="150" x2="234" y1="119.2" y2="264.8"
+                            gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stop-color="#fbbf24" />
+                            <stop offset=".5" stop-color="#fbbf24" />
+                            <stop offset="1" stop-color="#f59e0b" />
+                        </linearGradient>
+                        <clipPath id="meteoconsSunsetFill1">
+                            <path fill="none"
+                                d="M512 306H296a21.5 21.5 0 0 0-14 5.3L256 334l-26-22.7a21.5 21.5 0 0 0-14-5.3H0V0h512Z" />
+                        </clipPath>
+                        <symbol id="meteoconsSunsetFill2" viewBox="0 0 384 384">
+                            <circle cx="192" cy="192" r="84" fill="url(#meteoconsSunsetFill0)" stroke="#f8af18"
+                                stroke-miterlimit="10" stroke-width="6" />
+                            <path fill="none" stroke="#fbbf24" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="24"
+                                d="M192 61.7V12m0 360v-49.7m92.2-222.5l35-35M64.8 319.2l35.1-35.1m0-184.4l-35-35m254.5 254.5l-35.1-35.1M61.7 192H12m360 0h-49.7">
+                                <animateTransform additive="sum" attributeName="transform" dur="6s"
+                                    repeatCount="indefinite" type="rotate" values="0 192 192; 45 192 192" />
+                            </path>
+                        </symbol>
+                    </defs>
+                    <g clip-path="url(#meteoconsSunsetFill1)">
+                        <use width="384" height="384" href="#meteoconsSunsetFill2" transform="translate(64 100)" />
+                    </g>
+                    <path fill="none" stroke="#374151" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"
+                        d="M128 332h88l40 36l40-36h88" />
+                </svg>
+                <div class="info">
+                    <p>5:48 PM</p>
+                    <p>More info...</p>
+                    <p>More info...</p>
+                </div>
+            </div>
+        </div>
+        <div class="stats-box box-ten"></div>
+    </main>
+</body>
+
+</html>

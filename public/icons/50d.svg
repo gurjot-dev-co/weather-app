@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <!-- Lighter daytime fog gradient -->
+    <linearGradient id="fog50d0" x1="220" x2="292" y1="137.7" y2="262.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e6e9ee"/>
+      <stop offset=".5" stop-color="#e1e4ea"/>
+      <stop offset="1" stop-color="#d7dadf"/>
+    </linearGradient>
+    <linearGradient id="fog50d1" href="#fog50d0" y1="193.7" y2="318.4" />
+    <linearGradient id="fog50d2" href="#fog50d0" y1="249.7" y2="374.4" />
+  </defs>
+  <!-- Fog lines -->
+  <path fill="none" stroke="url(#fog50d0)" stroke-linecap="round" stroke-width="20" d="M136 200h240">
+    <animateTransform attributeName="transform" dur="6s" repeatCount="indefinite" type="translate" values="-48 0; 48 0; -48 0"/>
+  </path>
+  <path fill="none" stroke="url(#fog50d1)" stroke-linecap="round" stroke-width="20" d="M136 256h240">
+    <animateTransform attributeName="transform" begin="-1.5s" dur="6s" repeatCount="indefinite" type="translate" values="-48 0; 48 0; -48 0"/>
+  </path>
+  <path fill="none" stroke="url(#fog50d2)" stroke-linecap="round" stroke-width="20" d="M136 312h240">
+    <animateTransform attributeName="transform" dur="6s" repeatCount="indefinite" type="translate" values="48 0; -48 0; 48 0"/>
+  </path>
+</svg>

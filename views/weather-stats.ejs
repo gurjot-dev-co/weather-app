@@ -1,0 +1,384 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="weather-icon">
+        <!-- style it like font-size 4rem margin-bottom 10px -->
+        <% if (locals.icon){ %>
+            <!-- If sky is clear AND only visibility is low, override 50d -->
+            <% if ((locals.icon === "50d" || locals.icon === "50n") && locals.cloudCoverage <= 10) { %>
+                <% const finalIcon = locals.icon.endsWith("d") ? "01d" : "01n"; %>
+                <img src="icons/<%= finalIcon %>.svg" alt="clear sky" height="200">
+
+            <!-- Scattered clouds fix -->
+            <% }else if ((locals.icon === "03d" || locals.icon === "03n") && locals.cloudCoverage <= 50){ %>
+                <% const finalIcon = locals.icon.endsWith("d") ? "03d" : "03n"; %>
+                <img src="icons/<%= finalIcon %>.svg" alt="scattered clouds" height="200">
+
+            <!-- Broken clouds -->
+            <% }else if ((locals.icon === "03d" || locals.icon === "03n") && locals.cloudCoverage > 50){ %>
+                <% const finalIcon = locals.icon.endsWith("d") ? "04d" : "04n"; %>
+                <img src="icons/<%= finalIcon %>.svg" alt="broken clouds" height="200">
+
+            <!-- Light rain behaving like clouds -->
+            <% }else if ((locals.icon === "10d" || locals.icon === "10n") && locals.rainAmount < 0.3){ %> 
+                <% if (locals.cloudCoverage <= 50) { %> 
+                    <% const finalIcon = locals.icon.endsWith("d") ? "03d" : "03n"; // scattered clouds %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="scattered clouds" height="200">
+                <% } else { %>
+                    <% const finalIcon =locals.icon.endsWith("d") ? "04d" : "04n"; // broken clouds %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="broken clouds" height="200">
+                <% } %>
+
+            <!-- Mist override  -->
+            <%}else if (locals.icon === "50d" || locals.icon === "50n") { %>
+                <% if (locals.cloudCoverage <= 20) { %>
+                    <% const finalIcon= locals.icon.endsWith("d") ? "01d" : "01n";   // clear sky %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="clear sky" height="200">
+                <% } else if (locals.cloudCoverage <= 50) { %>
+                    <% const finalIcon = locals.icon.endsWith("d") ? "02d" : "02n";   // few clouds %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="few clouds" height="200">
+                <% } else if (locals.cloudCoverage <= 80) { %>
+                    <% const finalIcon = locals.icon.endsWith("d") ? "03d" : "03n";   // scattered clouds %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="scattered clouds" height="200">
+                <% } else { %>
+                    <% const finalIcon = locals.icon.endsWith("d") ? "04d" : "04n";   // broken clouds %>
+                    <img src="icons/<%= finalIcon %>.svg" alt="broken clouds" height="200">
+                <% } %>
+
+            <!-- Default: display according to the weather icon codes -->
+            <% }else{ %>
+            <img src="icons/<%= locals.icon %>.svg" alt="<%= locals.weatherDescription %>" height="200">
+            <% } %>
+
+        <% } else{ %>
+            <p>❔No Weather icon found</p>
+            <% console.error("⚠️ No weather icon element found in HTML") %>
+        <% } %>
+
+        <div class="weather-description">
+            <% if ((locals.icon === "50d" || locals.icon === "50n") && locals.cloudCoverage <= 10) { %>
+                Sunny
+            <% }else{ %>
+                <%= locals.weatherDescription %>
+            <% } %>
+        </div>
+
+        <div class="temp">
+            <h3 class="min-temp">Min temp |
+                <p><%= locals.minTemp %>°C</p>
+            </h3>
+
+            <h3 class="max-temp"> Max temp
+                <p><%= locals.maxTemp %>°C</p>
+            </h3>
+        </div>
+    </div>
+
+    <main class="weather-stats-page-main-sec">
+        <div class="stats-box box-one temp-feels-like">
+            <h2>Temperature</h2>
+            <div class="content">
+                <% if (locals.temperature <= 15){ %>
+                    <img src="icons/thermometer-low-temp.svg" alt="low-temperature-thermometer">
+                <% }else if (locals.temperature <= 29){ %>
+                    <img src="icons/thermometer-temp-med.svg" alt="medium-temperature-thermometer">
+                <% }else{ %>
+                    <img src="icons/thermometer-temp-high.svg" alt="high-temperature-thermometer">
+                <% } %>
+
+                <div class="info">
+                    <p>Actual Temperature : <%= locals.temperature %>°C</p>
+                    <p>Feels Like : <%= locals.feelsLike %>°C</p>
+                    <% if (locals.feelsLike < locals.temperature){ %>
+                        <p>Feels cooler than the actual temperature due to high wind speed.</p>
+                    <% }else if (locals.feelsLike > locals.temperature){ %>
+                        <p>Feels warmer than the actual temperature due to humidity or low wind speed</p>
+                    <% }else{ %>
+                        <p>Feels exactly the same as the actual temperature.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-two air-pressure">
+            <h2>Air Pressure</h2>
+            <div class="content">
+                <img src="icons/air-pressure.svg" alt="air pressure">
+
+                <div class="info">
+                    <p><%= locals.airPressure %>hPa</p>
+                    <% if (locals.airPressure > 1015) { %>
+                        <p>High pressure — Stable and calm weather.</p>
+                    <% } else if (locals.airPressure >= 1000) { %>
+                        <p>Normal pressure — Generally stable conditions.</p>
+                    <% } else { %>
+                        <p>Low pressure — Possible clouds, rain, or storms.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-three humidity-in-air">
+            <h2>Atmospheric Humidity</h2>
+            <div class="content">
+                <img src="icons/humidity.svg" alt="humidity in air">
+                <div class="info">
+                    <p>Humidity : <%= locals.humidityInAir %>% </p>
+                    <% if (locals.humidityInAir < 30){ %>
+                        <ul>
+                            <li>Dry air — clear skies likely.</li>
+                            <li>Clouds struggle to form.</li>
+                            <li>Slight increase in static charge.</li>
+                        </ul>
+                    <% }else if (locals.humidityInAir < 60){ %>
+                        <ul>
+                            <li>Comfortable humidity level.</li>
+                            <li>Supports typical breathing comfort.</li>
+                            <li>No major weather impact.</li>
+                        </ul>
+                    <% }else { %>
+                        <ul>
+                            <li>High moisture — air feels heavier.</li>
+                            <li>Sweat evaporates slowly.</li>
+                            <li>Greater chance of clouds or rain.</li>
+                        </ul>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-four wind-speed">
+            <h2>Wind Speed</h2>
+            <div class="content">
+                <% if (locals.windSpeed < 10){ %>
+                    <img src="icons/wind-speed-1.svg" alt="slow wind">
+                <% }else if (locals.windSpeed < 25){ %>
+                    <img src="icons/wind-speed-5.svg" alt="medium wind">
+                <% }else if (locals.windSpeed < 40){ %>
+                    <img src="icons/wind-speed-6.svg" alt="fast wind">
+                <% }else{ %>    
+                    <img src="icons/wind-speed-12.svg" alt="strong wind">
+                <% } %>
+                <div class="info">
+                    <p><%= locals.windSpeed %> Km/h</p>
+                        <% if (locals.windSpeed < 10){ %>
+                            <p>Calm air — barely noticeable breeze.</p>
+                        <% }else if (locals.windSpeed < 25){ %>
+                            <p>Gentle to moderate breeze — pleasant outdoor conditions.</p>
+                        <% }else if (locals.windSpeed < 40){ %>
+                            <p>Strong breeze — noticeable while walking.</p>
+                        <% }else{ %>    
+                            <p>Strong, forceful wind — outdoor caution advised.</p>
+                        <% } %>                  
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-five compass">
+            <h2>Wind Direction</h2>
+            <div class="content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="185" viewBox="100 100 312 312">
+                    <circle cx="256" cy="256" r="144" fill="none" stroke="#475569" stroke-miterlimit="10"
+                        stroke-width="12" />
+                    <path fill="#475569"
+                        d="M259.2 152v-10.4h4.6v18h-4.7l-6.3-10.4v10.4h-4.6v-18h4.7Zm103.3 105.7v3.3h9.8v4h-14.5v-18H372v4h-9.5v3h8.3v3.8Zm-106.4
+                         116a8.4 8.4 0 0 1-5.4-1.6a5.8 5.8 0 0 1-2-4.4h4.4c0 1.6 1.1 2.4 3.1 2.4c1.8 0 2.6-.6 2.6-1.7a1.3
+                         1.3 0 0 0-.4-1a4.6 4.6 0 0 0-1.6-.7l-3.4-.7c-2.9-.7-4.4-2.4-4.4-4.9a5 5 0 0 1 1.7-3.9a7.5 7.5 0 0 1 5.1-1.5a8
+                         8 0 0 1 5 1.5a5.2 5.2 0 0 1 2 4h-4.3c-.2-1.4-1-2-2.7-2a2.9 2.9 0 0 0-1.6.4a1.3 1.3 0 0 0-.6 1c0 .8.5 1.3 1.6
+                         1.6l3.5.8q4.7 1.1 4.7 5.1a4.9 4.9 0 0 1-2 4.1a8.5 8.5 0 0 1-5.3 1.5ZM156.2 255l2-8h4.7l-5.2 18h-4.5l-2.5-11.5l-2.3
+                          11.5h-4.6l-5.2-18h4.7l2 8l.9 4.2l.7-4.3l1.7-7.9h4.4l1.8 8l.6 4.1Z" />
+                    <g>
+                        <% if (locals.windDegree >= 337.5 || locals.windDegree <= 22.5){ %>
+                            <!-- North -->
+                            <g transform="rotate(0 256 256)">
+                        <% }else if (locals.windDegree > 22.5 && locals.windDegree <= 67.5){ %>
+                            <!-- Northeast -->
+                            <g transform="rotate(45 256 256)">
+                        <% }else if (locals.windDegree > 67.5 && locals.windDegree <= 112.5){ %>
+                            <!-- East -->
+                            <g transform="rotate(87 256 256)">
+                        <% }else if (locals.windDegree > 112.5 && locals.windDegree <= 157.5){ %>
+                            <!-- Southeast -->
+                            <g transform="rotate(135 256 256)">
+                        <% }else if (locals.windDegree > 157.5 && locals.windDegree <= 202.5){ %>
+                            <!-- South -->
+                            <g transform="rotate(180 256 256)">
+                        <% }else if (locals.windDegree > 202.5 && locals.windDegree <= 247.5){ %>
+                            <!-- Southwest -->
+                            <g transform="rotate(225 256 256)">
+                        <% }else if (locals.windDegree > 247.5 && locals.windDegree <= 292.5){ %>
+                            <!-- West -->
+                            <g transform="rotate(-90 256 256)">
+                        <% }else if (locals.windDegree > 292.5 && locals.windDegree < 337.5) {%>
+                            <!-- Northwest -->
+                            <g transform="rotate(-45 256 256)">
+                        <% } %>
+                            <path fill="#ef4444" d="m256 172l-24 84h48l-24-84z" />
+                            <path fill="#e2e8f0" d="m232 256l24 84l24-84h-48z" />
+                        </g>
+                        <animateTransform additive="sum" attributeName="transform" calcMode="spline" dur="2s"
+                            keySplines=".42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite" type="rotate"
+                            values="-6 256 256; 6 256 256; -6 256 256" />
+                    </g>
+                </svg>
+
+                <div class="info">
+                    <p><%= locals.windDegree %>°</p>
+                    <% if (locals.windDegree >= 337.5 || locals.windDegree <= 22.5){ %>
+                        <!-- North -->
+                         <ul>
+                            <li>Wind blowing from the north.</li>
+                            <li>Often brings clearer skies and lower temperatures.</li>
+                            <li>Can make the weather feel brisk or chilly.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 22.5 && locals.windDegree <= 67.5){ %>
+                        <!-- Northeast -->
+                         <ul>
+                            <li>Wind blowing from the northeast.</li>
+                            <li>Usually signals fair or improving weather.</li>
+                            <li>Can lower humidity and bring clearer conditions.</li>
+                         </ul>                    
+                    <% }else if (locals.windDegree > 67.5 && locals.windDegree <= 112.5){ %>
+                        <!-- East -->
+                         <ul>
+                            <li>Wind blowing from the east.</li>
+                            <li>May bring moisture depending on your region.</li>
+                            <li>Often linked to cloudy or changing conditions.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 112.5 && locals.windDegree <= 157.5){ %>
+                        <!-- Southeast -->
+                         <ul>
+                            <li>Wind blowing from the southeast.</li>
+                            <li>Often increases humidity and cloud cover.</li>
+                            <li>Can bring mild, unstable, or rainy weather.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 157.5 && locals.windDegree <= 202.5){ %>
+                        <!-- South -->
+                         <ul>
+                            <li>Wind blowing from the south.</li>
+                            <li>Often raises temperature and moisture levels.</li>
+                            <li>Commonly associated with humid or stormy weather.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 202.5 && locals.windDegree <= 247.5){ %>
+                        <!-- Southwest -->
+                         <ul>
+                            <li>Wind blowing from the southwest.</li>
+                            <li>Generally bring stable and pleasant weather.</li>
+                            <li>Can slightly increase temperatures.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 247.5 && locals.windDegree <= 292.5){ %>
+                        <!-- West -->
+                         <ul>
+                            <li>Wind blowing from the west.</li>
+                            <li>Typically brings fresh, changing weather.</li>
+                            <li>Often linked with clearer, drier conditions.</li>
+                         </ul>
+                    <% }else if (locals.windDegree > 292.5 && locals.windDegree < 337.5) {%>
+                        <!-- Northwest -->
+                         <ul>
+                            <li>Wind blowing from the northwest.</li>
+                            <li>Can bring crisp, clear, post-rain weather.</li>
+                            <li>Often lowers humidity and temperature.</li>
+                         </ul>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-six cloud-coverage">
+            <h2>Cloud Coverage</h2>
+            <div class="content">
+                <img src="icons/cloud-coverage.svg" alt="cloud coverage">
+    
+                <div class="info">
+                    <p><%= locals.cloudCoverage %>%</p>
+                    <% if (locals.cloudCoverage <= 10){ %>
+                        <p>Clear Sky</p>
+                    <% }else if (locals.cloudCoverage <= 30){ %>
+                        <p>Mostly Clear</p>
+                    <% }else if (locals.cloudCoverage <= 50){ %>
+                        <p>Partly Cloudy</p>
+                    <% }else if (locals.cloudCoverage <= 70){ %>
+                        <p>Mostly Cloudy</p>
+                    <% }else if (locals.cloudCoverage <= 90){ %>
+                        <p>Very Cloudy</p>
+                    <% }else{ %>
+                        <p>Fully Overcast</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-seven visibility">
+            <h2>Visibility</h2>
+            <div class="content">
+                <img src="icons/blue-eye.svg" alt="blue eye">
+
+                <div class="info">
+                    <p><%= locals.visibility %> Km</p>
+                    <% if (locals.visibility <= 1.0){ %>
+                        <p>Very Poor Visibility</p>
+                        <p>Due to heavy fog, dense haze, or intense pollution.</p>
+                    <% }else if (locals.visibility < 4){ %>
+                        <p>Poor Visibility</p>
+                        <p>Due to mist, light fog, or smog reducing clarity.</p>
+                    <% }else if (locals.visibility < 10){ %>
+                        <p>Moderate Visibility</p>
+                        <p>Some haze present; distant objects appear faded.</p>
+                    <% }else if (locals.visibility < 20){ %>
+                        <p>Good Visibility</p>
+                        <p>Mostly clear with only slight atmospheric scattering.</p>
+                    <% }else{ %>
+                        <p>Excellent Visibility</p>
+                        <p>Air is very clear; far-distance objects easily visible.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-eight sunrise-time">
+            <h2>Sunrise Time</h2>
+            <div class="content">
+                <img src="icons/sunrise.svg" alt="sunrise">
+
+                <div class="info">
+                    <p><%= locals.sunriseTime %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-box box-nine sunset-time">
+            <h2>Sunset Time</h2>
+            <div class="content">
+                <img src="icons/sunset.svg" alt="sunset">
+
+                <div class="info">
+                    <p><%= locals.sunsetTime %></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.weatherData = {
+            icon: "<%= icon %>",
+            description: "<%= weatherDescription %>",
+            temperature: "<%= temperature %>",
+            feelsLike: "<%= feelsLike %>",
+            minTemp: "<%= minTemp %>",
+            maxTemp: "<%= maxTemp %>",
+            airPressure: "<%= airPressure %>",
+            humidity: "<%= humidityInAir %>",
+            windSpeed: "<%= windSpeed %>",
+            windDegree: "<%= windDegree %>",
+            gustSpeed: "<%= gustSpeed %>",
+            cloudCoverage: "<%= cloudCoverage %>",
+            visibility: "<%= visibility %>",
+            sunriseTime: "<%= sunriseTime %>",
+            sunsetTime: "<%= sunsetTime %>"
+        };
+    </script>
+    <script src="js/weather-icons.js"></script>
+    <script src="js/stats-page-clouds.js"></script>
+    <script src="js/star-animation.js"></script>
+
+    <%- include("partials/footer.ejs") %>
