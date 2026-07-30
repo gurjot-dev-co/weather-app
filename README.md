@@ -49,6 +49,7 @@ A responsive weather application built with Node.js, Express, and EJS that fetch
 ```
 Weather App
 ├── public/
+│   ├── assets/
 │   ├── icons/
 │   ├── images/
 │   ├── js/
