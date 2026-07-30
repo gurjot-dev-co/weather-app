@@ -7,12 +7,12 @@ A responsive weather application built with Node.js, Express, and EJS that fetch
 ## 📸 Preview
 
 <p align="center">
-  <img src="assets/home.png" alt="Home Page" width="45%">
-  <img src="assets/footer.png" alt="Footer" width="45%">
+    <img src="assets/home-page.png" alt="Home and Footer" width="80%">
 </p>
 
 <p align="center">
   <img src="assets/statistics.png" alt="Weather Statistics" width="45%">
+    &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="assets/statistics2.png" alt="Additional Weather Statistics" width="45%">
 </p>
 
