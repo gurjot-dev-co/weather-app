@@ -11,9 +11,7 @@ A responsive weather application built with Node.js, Express, and EJS that fetch
 </p>
 
 <p align="center">
-  <img src="assets/statistics.png" alt="Weather Statistics" width="45%">
-    &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/statistics2.png" alt="Additional Weather Statistics" width="45%">
+  <img src="assets/statistics.png" alt="Weather Statistics" width="80%">
 </p>
 
 ## 🌐 Live Demo
