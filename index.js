@@ -41,6 +41,7 @@ app.get("/weather-stats", async (req, res) => {
             .join(" ");    // joins the array back into a single string, separating each word with a space.
 
         res.render("weather-stats.ejs", {
+            city: city.charAt(0).toUpperCase() + city.slice(1).toLowerCase(),
             weatherDescription: formattedDesc,
             icon: weatherResponse.data.weather[0].icon,    ///get icon and use switch statement to chnage icon based on code 
             temperature: (weatherResponse.data.main.temp - 273.15).toFixed(1), // Converted Kelvin -> °Celsius
