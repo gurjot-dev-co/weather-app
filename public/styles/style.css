@@ -70,6 +70,69 @@ main.home-page {
     overflow: hidden;
 }
 
+@media (max-width: 1050px) {
+    nav {
+        padding: 18px 25px;
+    }
+    nav ul {
+        gap: 2vw;
+    }
+    li {
+        font-size: 18px;
+    }
+    main.home-page {
+        height: 88vh;
+    }
+}
+
+@media (max-width: 850px) {
+    nav {
+        padding: 17px 20px;
+    }
+    nav ul {
+        gap: 1.5vw;
+    }
+    li {
+        font-size: 17px;
+    }
+    main.home-page {
+        height: auto;
+        min-height: 85vh;
+    }
+}
+
+@media (max-width: 650px) {
+    nav {
+        padding: 15px;
+        align-items: center;
+    }
+    nav ul {
+        gap: 12px;
+    }
+    li {
+        font-size: 15px;
+    }
+    main.home-page {
+        height: auto;
+        min-height: 85vh;
+    }
+}
+
+@media (max-width: 500px) {
+    nav {
+        padding: 12px;
+    }
+    nav ul {
+        gap: 8px;
+    }
+    li {
+        font-size: 13px;
+    }
+    main.home-page {
+        min-height: 80vh;
+    }
+}
+
 /* Basic cloud shape */
 .cloud {
     position: absolute;
